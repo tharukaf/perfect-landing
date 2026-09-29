@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { customers } from "@/lib/customers"
+import Image from "next/image";
+import { customers } from "@/lib/customers";
 
 export default function LogoCloud() {
   return (
@@ -38,9 +38,9 @@ export default function LogoCloud() {
                 <Image
                   src={src}
                   alt={name}
-                  width={120}
-                  height={48}
-                  className="h-10 w-auto object-contain"
+                  width={160}
+                  height={64}
+                  className="h-23 w-auto object-contain"
                 />
               </div>
             ))}
@@ -48,5 +48,5 @@ export default function LogoCloud() {
         </div>
       </div>
     </section>
-  )
+  );
 }

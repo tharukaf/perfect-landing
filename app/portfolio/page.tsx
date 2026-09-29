@@ -1,12 +1,13 @@
-import type { Metadata } from "next"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import { portfolioItems } from "@/lib/portfolio-data"
+import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { portfolioItems } from "@/lib/portfolio-data";
 
 export const metadata: Metadata = {
   title: "Portfolio | Perfect Communications",
-  description: "A selection of print, packaging, and direct mail work from Perfect Communications.",
-}
+  description:
+    "A selection of print, packaging, and direct mail work from Perfect Communications.",
+};
 
 export default function PortfolioPage() {
   return (
@@ -45,5 +46,5 @@ export default function PortfolioPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

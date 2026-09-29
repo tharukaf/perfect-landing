@@ -13,10 +13,10 @@ export default function Home() {
     <div className="flex w-full flex-col">
       <Hero />
       <Reveal>
-        <LogoCloud />
+        <Features />
       </Reveal>
       <Reveal>
-        <Features />
+        <LogoCloud />
       </Reveal>
       <Reveal>
         <Bento />
