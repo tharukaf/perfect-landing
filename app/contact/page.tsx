@@ -1,11 +1,11 @@
-import type { Metadata } from "next"
-import { Badge } from "@/components/ui/badge"
-import { ContactForm } from "@/components/contact-form"
+import type { Metadata } from "next";
+import { Badge } from "@/components/ui/badge";
+import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = {
   title: "Contact | Perfect Communications",
   description: "Request a quote from Perfect Communications.",
-}
+};
 
 export default function ContactPage() {
   return (
@@ -18,8 +18,8 @@ export default function ContactPage() {
           Request a quote
         </h1>
         <p className="mt-4 text-muted-foreground">
-          Tell us about your project and we&apos;ll get back to you with
-          pricing and a timeline, usually within a few hours.
+          Tell us about your project and we&apos;ll get back to you with pricing
+          and a timeline, usually within a few hours.
         </p>
 
         <div className="mt-10 rounded-xl border border-border bg-card p-6 sm:p-8">
@@ -27,5 +27,5 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

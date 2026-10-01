@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
+import { ThreeDButton } from "@/components/evil-buttons/3d-button"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -45,9 +45,9 @@ export function ContactForm() {
         </Field>
       </FieldGroup>
 
-      <Button type="submit" className="w-full sm:w-auto">
+      <ThreeDButton type="submit" className="w-full sm:w-auto">
         Request a Quote
-      </Button>
+      </ThreeDButton>
     </form>
   )
 }

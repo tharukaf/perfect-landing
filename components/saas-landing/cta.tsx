@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ThreeDButton } from "@/components/evil-buttons/3d-button"
 import { ArrowRight } from "lucide-react"
 
 export default function Cta() {
@@ -19,14 +20,14 @@ export default function Cta() {
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button
-            render={<Link href="/contact" />}
-            nativeButton={false}
-            className="w-full sm:w-auto"
-          >
-            Request a Quote
-            <ArrowRight data-icon="inline-end" aria-hidden="true" />
-          </Button>
+          <Link href="/contact" className="w-full sm:w-auto">
+            <ThreeDButton className="w-full">
+              <span className="inline-flex items-center gap-1.5">
+                Request a Quote
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </span>
+            </ThreeDButton>
+          </Link>
           <Button
             variant="secondary"
             render={<Link href="/portfolio" />}

@@ -2,8 +2,10 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { ThreeDButton } from "@/components/evil-buttons/3d-button"
 import {
   Sheet,
   SheetClose,
@@ -46,12 +48,38 @@ function ThemeToggle({ className }: { className?: string }) {
   )
 }
 
+function HeaderCta() {
+  const isHome = usePathname() === "/"
+  const [heroVisible, setHeroVisible] = React.useState(true)
+
+  React.useEffect(() => {
+    if (!isHome) return
+    const target = document.getElementById("hero-cta")
+    if (!target) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroVisible(entry.isIntersecting),
+      { root: document.querySelector(".app-scroll") }
+    )
+    observer.observe(target)
+    return () => observer.disconnect()
+  }, [isHome])
+
+  if (isHome && heroVisible) return null
+  return (
+    <Link href="/contact">
+      <div className="scale-90">
+        <ThreeDButton>Request a Quote</ThreeDButton>
+      </div>
+    </Link>
+  )
+}
+
 export default function Header() {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <header className="sticky top-0 z-30 w-full border-b border-border bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-6">
+    <header className="sticky top-4 z-30 w-full px-4 sm:px-6">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 rounded-2xl border border-border bg-background/80 px-6 shadow-lg backdrop-blur">
         <Link href="/" className="shrink-0">
           <Logo />
         </Link>
@@ -70,9 +98,7 @@ export default function Header() {
 
         <div className="ml-auto hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button render={<Link href="/contact" />} nativeButton={false}>
-            Request a Quote
-          </Button>
+          <HeaderCta />
         </div>
 
         <div className="ml-auto flex items-center gap-2 md:hidden">
@@ -112,15 +138,9 @@ export default function Header() {
               <SheetFooter>
                 <SheetClose
                   nativeButton={false}
-                  render={
-                    <Button
-                      render={<Link href="/contact" />}
-                      nativeButton={false}
-                      className="w-full"
-                    />
-                  }
+                  render={<Link href="/contact" className="w-full" />}
                 >
-                  Request a Quote
+                  <ThreeDButton className="w-full">Request a Quote</ThreeDButton>
                 </SheetClose>
               </SheetFooter>
             </SheetContent>

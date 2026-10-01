@@ -3,8 +3,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { ArrowRight, Check } from "lucide-react"
-import { Logo } from "@/components/logo"
 import { LogoGlow } from "@/components/logo-glow"
+import TechText from "@/components/tech-text"
+import { ThreeDButton } from "@/components/evil-buttons/3d-button"
 
 const TRUST_ITEMS = [
   "In business for over 30 years",
@@ -15,7 +16,7 @@ const TRUST_ITEMS = [
 export default function Hero() {
   return (
     <section className="flex w-full items-center justify-center px-6 py-16 sm:py-24">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 md:grid-cols-2 md:items-center md:gap-16">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 md:grid-cols-2 md:items-start md:gap-16">
         <div className="flex flex-col">
           <Badge variant="outline" className="w-fit">
             Since 1990
@@ -33,14 +34,14 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button
-              render={<Link href="/contact" />}
-              nativeButton={false}
-              className="w-full sm:w-auto"
-            >
-              Request a Quote
-              <ArrowRight data-icon="inline-end" aria-hidden="true" />
-            </Button>
+            <Link href="/contact" id="hero-cta" className="w-full sm:w-auto">
+              <ThreeDButton className="w-full">
+                <span className="inline-flex items-center gap-1.5">
+                  Request a Quote
+                  <ArrowRight className="size-4" aria-hidden="true" />
+                </span>
+              </ThreeDButton>
+            </Link>
             <Button
               render={<Link href="/portfolio" />}
               nativeButton={false}
@@ -69,7 +70,15 @@ export default function Hero() {
         <div className="relative">
           <div className="overflow-hidden rounded-xl border border-border">
             <LogoGlow>
-              <Logo className="inline-block rounded-lg bg-black/30 px-5 py-3 text-3xl text-white backdrop-blur-sm sm:text-4xl" />
+              <TechText
+                text="perfect"
+                fontWeight={600}
+                fontSize={175}
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={15}
+              />
             </LogoGlow>
           </div>
 
