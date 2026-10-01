@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Printer, Truck, Database, Check } from "lucide-react";
 import Cubes from "@/components/Cubes";
+import ElectricLogo from "@/components/ElectricLogo";
 import PrinterShowcase from "@/components/saas-landing/printer-showcase";
 
 /** Props a call site may pass through to an icon. */
@@ -29,6 +30,27 @@ const rows: Row[] = [
       "Warehousing & fulfillment",
       "Bindery & finishing",
     ],
+    visual: (
+      <div className="aspect-[4/3] w-full">
+        <ElectricLogo
+          src="/envelope.jpg"
+          color="#090548"
+          glowColor="#ffffff"
+          scale={0.55}
+          strands={4}
+          bend={0}
+          crackle={0}
+          arcs={0.85}
+          speed={0}
+          interactive
+          intensity={0.8}
+          glow={1.45}
+          thickness={0.5}
+          flicker={0}
+          cursorIntensity={0}
+        />
+      </div>
+    ),
   },
   {
     eyebrow: "Digital & Data Services",
