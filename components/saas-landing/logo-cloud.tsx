@@ -32,7 +32,7 @@ export default function LogoCloud() {
             {[...customers, ...customers].map(({ name, src }, index) => (
               <div
                 key={`${name}-${index}`}
-                className="flex shrink-0 items-center px-8 grayscale transition-all duration-200 hover:grayscale-0"
+                className="group mx-5 flex size-40 shrink-0 items-center justify-center overflow-hidden rounded-none border border-border bg-[#070b16] p-2"
                 aria-hidden={index >= customers.length ? "true" : undefined}
               >
                 <Image
@@ -40,7 +40,7 @@ export default function LogoCloud() {
                   alt={name}
                   width={160}
                   height={64}
-                  className="h-23 w-auto object-contain"
+                  className="size-full scale-[1.15] object-contain brightness-0 invert opacity-70 transition-opacity duration-200 group-hover:opacity-100"
                 />
               </div>
             ))}
