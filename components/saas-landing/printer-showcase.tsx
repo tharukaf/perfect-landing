@@ -13,12 +13,12 @@ const FINAL_POSITION: [number, number, number] = [11.07, 6.36, 12.01];
 // Tuned against a squarish aspect-[4/3] box; this row is full-width but much
 // shorter, so the same zoom clips the model's top -- pulled back to fit the
 // new, wider-than-tall frame.
-const FINAL_ZOOM = 386.78 * 0.78;
+const FINAL_ZOOM = 386.78 * 0.95;
 const LIGHT_POSITION: [number, number, number] = [2.89, 2.32, -0.91];
 
 const START_ZOOM = FINAL_ZOOM * 0.6;
-const ENTRANCE_ROTATION_DEG = 30;
-const SETTLE_PAN_FRACTION = 0.12;
+const ENTRANCE_ROTATION_DEG = 32;
+const SETTLE_PAN_FRACTION = 0.14;
 // Gentle perpetual back-and-forth once settled, in degrees and radians/sec.
 const IDLE_SWAY_DEG = 4;
 const IDLE_SWAY_SPEED = 0.3;
