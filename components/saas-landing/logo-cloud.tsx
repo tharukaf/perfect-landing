@@ -3,7 +3,7 @@ import { customers } from "@/lib/customers";
 
 export default function LogoCloud() {
   return (
-    <section className="flex w-full flex-col items-center px-6 py-14 sm:py-16">
+    <section data-bg="work" className="flex w-full flex-col items-center py-20 sm:py-28">
       <style>{`
         @keyframes logo-cloud-marquee {
           from { transform: translateX(0); }
@@ -22,12 +22,12 @@ export default function LogoCloud() {
         }
       `}</style>
 
-      <div className="mx-auto w-full max-w-6xl text-center">
-        <p className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+      <div data-reveal="up" className="mx-auto w-full text-center">
+        <p className="px-6 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
           We&apos;ve served customers dependably for more than 30 years
         </p>
 
-        <div className="logo-cloud-mask relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+        <div className="logo-cloud-mask relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
           <div className="logo-cloud-track flex w-max items-center">
             {[...customers, ...customers].map(({ name, src }, index) => (
               <div

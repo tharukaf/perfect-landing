@@ -64,15 +64,15 @@ export default function Faqs() {
   }
 
   return (
-    <section id="faq" className="flex w-full items-center justify-center px-6 py-16 sm:py-24">
-      <div className="mx-auto w-full max-w-6xl">
+    <section id="faq" data-bg="work" className="flex w-full items-center justify-center px-6 py-20 sm:py-32 md:px-[4vw]">
+      <div className="mx-auto w-full max-w-[1500px]">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1fr_1.6fr] md:gap-16">
-          <div className="flex flex-col gap-6">
+          <div data-reveal="left" className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
               <Badge variant="outline" className="tracking-widest uppercase">
                 FAQ
               </Badge>
-              <h2 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              <h2 className="font-heading text-4xl font-bold tracking-tight text-balance sm:text-6xl">
                 Questions &amp; answers
               </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
@@ -82,7 +82,7 @@ export default function Faqs() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-lg border border-border bg-card p-5">
+            <div className="flex flex-col gap-4 glass-card rounded-2xl p-5">
               <div className="flex items-center gap-3">
                 <div className="flex size-9 items-center justify-center rounded-md border border-border bg-background">
                   <Mail className="size-4 text-muted-foreground" />
@@ -149,6 +149,7 @@ export default function Faqs() {
             </div>
           </div>
 
+          <div data-reveal="right">
           <Accordion defaultValue={[faqs[0].q]}>
             {faqs.map(({ q, a }) => (
               <AccordionItem key={q} value={q}>
@@ -161,6 +162,7 @@ export default function Faqs() {
               </AccordionItem>
             ))}
           </Accordion>
+          </div>
         </div>
       </div>
     </section>

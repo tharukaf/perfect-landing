@@ -29,13 +29,13 @@ function getInitials(name: string) {
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="flex w-full items-center justify-center px-6 py-16 sm:py-24">
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="mx-auto max-w-xl text-center">
+    <section id="testimonials" data-bg="proof" className="flex w-full items-center justify-center px-6 py-20 sm:py-32 md:px-[4vw]">
+      <div className="mx-auto w-full max-w-[1500px]">
+        <div data-reveal="up" className="mx-auto max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 tracking-widest uppercase">
             Client Stories
           </Badge>
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2 className="font-heading text-4xl font-bold tracking-tight text-balance sm:text-6xl">
             Trusted by clients for over 30 years
           </h2>
           <p className="mt-4 text-base text-muted-foreground">
@@ -43,15 +43,15 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {testimonials.map(({ quote, name, role, company }) => (
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {testimonials.map(({ quote, name, role, company }, index) => (
+            <div key={name} data-reveal={index % 2 ? "right" : "left"} className={index % 2 ? "md:translate-y-14" : ""}>
             <Card
-              key={name}
-              className="flex h-full flex-col border-border bg-card p-6 transition-colors duration-200 hover:border-foreground/20"
+              className="glass-card flex h-full flex-col rounded-3xl p-8 ring-0 transition-colors duration-200 hover:border-foreground/30 md:p-10"
             >
               <div className="flex flex-1 flex-col gap-4">
                 <Quote className="size-7 text-foreground opacity-20" aria-hidden="true" />
-                <blockquote className="flex-1 text-[15px] leading-relaxed text-foreground">
+                <blockquote className="flex-1 text-lg leading-relaxed text-foreground md:text-xl">
                   &ldquo;{quote}&rdquo;
                 </blockquote>
               </div>
@@ -72,6 +72,7 @@ export default function Testimonials() {
                 </span>
               </div>
             </Card>
+            </div>
           ))}
         </div>
       </div>

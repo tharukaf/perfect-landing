@@ -10,7 +10,7 @@ import PatternWaves from "@/components/PatternWaves"
  */
 export function LogoGlow({ children }: { children: ReactNode }) {
   return (
-    <div className="relative flex h-80 items-center justify-center overflow-hidden sm:h-96 md:h-[38rem]">
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
       {/* style prop forces absolute positioning: PatternWaves.css sets its
           own `position: relative` at the same specificity as Tailwind's
           `absolute` class, and loads after it in the bundle, so the class

@@ -41,8 +41,6 @@ export default function PrinterShowcase() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
-  // The app scrolls inside a custom `.app-scroll` container (see app-shell.tsx),
-  // not the window, so the observer's root has to be set explicitly.
   useEffect(() => {
     const target = wrapperRef.current;
     if (!target) return;
@@ -52,7 +50,7 @@ export default function PrinterShowcase() {
         setInView(true);
         observer.disconnect();
       },
-      { root: document.querySelector(".app-scroll"), threshold: 0.2 },
+      { threshold: 0.2 },
     );
     observer.observe(target);
     return () => observer.disconnect();

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="flex w-full flex-col items-center px-6 py-16 sm:py-24">
+    <div className="flex w-full flex-col items-center px-6 pt-32 pb-16 sm:pb-24">
       <div className="mx-auto w-full max-w-xl">
         <Badge variant="outline" className="mb-4 tracking-widest uppercase">
           Contact

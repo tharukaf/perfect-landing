@@ -13,67 +13,30 @@ const TRUST_ITEMS = [
   "Dedicated account support on every job",
 ]
 
+/**
+ * Tall scroll scene: the inner stage sticks to the viewport while ScrollFx
+ * scrubs `#hero-card` from a tilted-in card to full-bleed and back (see
+ * scroll-fx.tsx). Without motion it is a plain one-screen hero; the card's
+ * resting state is set here in classes so it doesn't flash before JS.
+ */
 export default function Hero() {
   return (
-    <section className="flex w-full items-center justify-center px-6 py-16 sm:py-24">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 md:grid-cols-2 md:items-start md:gap-16">
-        <div className="flex flex-col">
-          <Badge variant="outline" className="w-fit">
-            Since 1990
-          </Badge>
-
-          <h1 className="mt-6 font-heading text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-            We don&apos;t just print,
-            <br className="hidden sm:block" /> we perfect.
-          </h1>
-
-          <p className="mt-5 text-lg text-muted-foreground">
-            Digital printing, offset printing, and large format, plus direct
-            mail, packaging, and custom marketing materials, so your message
-            stands out every time.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="/contact" id="hero-cta" className="w-full sm:w-auto">
-              <ThreeDButton className="w-full">
-                <span className="inline-flex items-center gap-1.5">
-                  Request a Quote
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </span>
-              </ThreeDButton>
-            </Link>
-            <Button
-              render={<Link href="/portfolio" />}
-              nativeButton={false}
-              variant="ghost"
-              className="w-full sm:w-auto"
-            >
-              View Our Work
-            </Button>
-          </div>
-
-          <Separator className="my-8" />
-
-          <ul className="flex flex-col gap-2.5">
-            {TRUST_ITEMS.map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-2 text-sm text-muted-foreground"
-              >
-                <Check className="size-4 shrink-0 text-foreground" aria-hidden="true" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="relative">
-          <div className="overflow-hidden rounded-xl border border-border">
+    <section
+      id="hero"
+      data-bg="hero"
+      className="relative h-dvh min-h-[40rem] w-full motion-safe:h-[240vh]"
+    >
+      <div className="sticky top-0 h-dvh min-h-[40rem] w-full overflow-hidden">
+        <div
+          id="hero-card"
+          className="hero-card absolute inset-0 origin-center overflow-hidden rounded-[56px] border border-white/10 bg-black shadow-2xl"
+        >
+          <div id="hero-card-inner" className="absolute inset-0">
             <LogoGlow>
               <TechText
                 text="perfect"
                 fontWeight={600}
-                fontSize={175}
+                fontSize={520}
                 reveal="letter"
                 dashLength={4}
                 dashGap={2}
@@ -81,11 +44,66 @@ export default function Hero() {
               />
             </LogoGlow>
           </div>
+        </div>
 
+        <div className="pointer-events-none absolute inset-0 flex items-start px-6 pt-28 md:items-center md:px-[6vw] md:pt-0">
           <div
-            className="absolute -right-3 -bottom-3 -z-10 size-full rounded-xl border border-border bg-muted"
-            aria-hidden="true"
-          />
+            id="hero-copy"
+            className="pointer-events-auto flex w-full flex-col md:w-[40%]"
+          >
+            <Badge variant="outline" className="w-fit bg-background/30 backdrop-blur">
+              Since 1990
+            </Badge>
+
+            <h1 className="mt-6 font-heading text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+              We don&apos;t just print,
+              <br className="hidden sm:block" /> we perfect.
+            </h1>
+
+            <p className="mt-5 text-lg text-muted-foreground">
+              Digital printing, offset printing, and large format, plus direct
+              mail, packaging, and custom marketing materials, so your message
+              stands out every time.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/contact" id="hero-cta" className="w-full sm:w-auto">
+                <ThreeDButton className="w-full">
+                  <span className="inline-flex items-center gap-1.5">
+                    Request a Quote
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </ThreeDButton>
+              </Link>
+              <Button
+                render={<Link href="/portfolio" />}
+                nativeButton={false}
+                variant="ghost"
+                className="w-full sm:w-auto"
+              >
+                View Our Work
+              </Button>
+            </div>
+
+            <div className="hidden md:block">
+              <Separator className="my-8" />
+
+              <ul className="flex flex-col gap-2.5">
+                {TRUST_ITEMS.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-2 text-sm text-muted-foreground"
+                  >
+                    <Check
+                      className="size-4 shrink-0 text-foreground"
+                      aria-hidden="true"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>

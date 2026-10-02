@@ -6,33 +6,22 @@ import Hero from "@/components/saas-landing/hero"
 import LogoCloud from "@/components/saas-landing/logo-cloud"
 import Stats from "@/components/saas-landing/stats"
 import Testimonials from "@/components/saas-landing/testimonials"
-import { Reveal } from "@/components/reveal"
+import { ScrollFx } from "@/components/scroll-fx"
 
+// Each section owns its `data-bg` tint and `data-reveal` hooks; ScrollFx
+// wires them to GSAP once everything has mounted.
 export default function Home() {
   return (
     <div className="flex w-full flex-col">
       <Hero />
-      <Reveal>
-        <Features />
-      </Reveal>
-      <Reveal>
-        <LogoCloud />
-      </Reveal>
-      <Reveal>
-        <Bento />
-      </Reveal>
-      <Reveal>
-        <Stats />
-      </Reveal>
-      <Reveal>
-        <Testimonials />
-      </Reveal>
-      <Reveal>
-        <Faqs />
-      </Reveal>
-      <Reveal>
-        <Cta />
-      </Reveal>
+      <Features />
+      <LogoCloud />
+      <Bento />
+      <Stats />
+      <Testimonials />
+      <Faqs />
+      <Cta />
+      <ScrollFx />
     </div>
   )
 }

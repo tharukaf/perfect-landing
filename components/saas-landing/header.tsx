@@ -52,16 +52,14 @@ function HeaderCta() {
   const isHome = usePathname() === "/"
   const [heroVisible, setHeroVisible] = React.useState(true)
 
+  // The hero is a tall sticky scene now, so "is the hero CTA on screen" is
+  // better answered by how far down the page we are than by an observer.
   React.useEffect(() => {
     if (!isHome) return
-    const target = document.getElementById("hero-cta")
-    if (!target) return
-    const observer = new IntersectionObserver(
-      ([entry]) => setHeroVisible(entry.isIntersecting),
-      { root: document.querySelector(".app-scroll") }
-    )
-    observer.observe(target)
-    return () => observer.disconnect()
+    const update = () => setHeroVisible(window.scrollY < window.innerHeight * 0.5)
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    return () => window.removeEventListener("scroll", update)
   }, [isHome])
 
   if (isHome && heroVisible) return null
@@ -78,8 +76,8 @@ export default function Header() {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <header className="sticky top-4 z-30 w-full px-4 sm:px-6">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 rounded-2xl border border-border bg-background/80 px-6 shadow-lg backdrop-blur">
+    <header className="fixed inset-x-0 top-4 z-30 px-4 sm:px-6">
+      <div className="mx-auto flex h-16 w-full items-center gap-6 rounded-2xl border border-border/60 bg-background/50 px-6 shadow-lg backdrop-blur-xl">
         <Link href="/" className="shrink-0">
           <Logo />
         </Link>

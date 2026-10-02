@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Printer, Truck, Database, Check } from "lucide-react";
 import Cubes from "@/components/Cubes";
 import ElectricLogo from "@/components/ElectricLogo";
@@ -8,15 +7,19 @@ import PrinterShowcase from "@/components/saas-landing/printer-showcase";
 
 /** Props a call site may pass through to an icon. */
 type IconProps = { className?: string; size?: number | string };
+type IconRenderer = (p: IconProps) => ReactNode;
 
 type Row = {
   eyebrow: string;
-  Icon: (p: IconProps) => ReactNode;
+  Icon: IconRenderer;
   title: string;
   body: string;
   bullets: string[];
-  /** Overrides the default icon-chip visual when set. */
-  visual?: ReactNode;
+  /** Backdrop tint ScrollFx fades to while this row is on screen. */
+  bg: string;
+  /** Side the visual sits on; the copy card overlaps it from the other side. */
+  visualSide: "left" | "right";
+  visual: ReactNode;
 };
 
 const rows: Row[] = [
@@ -30,8 +33,10 @@ const rows: Row[] = [
       "Warehousing & fulfillment",
       "Bindery & finishing",
     ],
+    bg: "print",
+    visualSide: "left",
     visual: (
-      <div className="aspect-[4/3] w-full">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
         <ElectricLogo
           src="/envelope.jpg"
           color="#090548"
@@ -62,163 +67,177 @@ const rows: Row[] = [
       "Custom portals & flipbooks",
       "Online print management portals",
     ],
+    bg: "digital",
+    visualSide: "right",
     visual: (
-      <Cubes
-        gridSize={7}
-        cubeSize={45}
-        maxAngle={60}
-        radius={4}
-        borderStyle="2px dotted #ffffff"
-        faceColor="#0a1220"
-        rippleColor="#ffffff"
-        rippleSpeed={1.5}
-        autoAnimate
-        rippleOnClick
-      />
+      <div className="relative flex h-[22rem] w-full items-center justify-center sm:h-[30rem] md:justify-start lg:h-[38rem]">
+        {/* magenta bloom behind the grid, like the lit-from-within object in
+            the reference */}
+        <div
+          data-parallax="12"
+          className="absolute left-[10%] size-[70%] rounded-full bg-[#d4189a]/40 blur-[110px]"
+          aria-hidden="true"
+        />
+        <div className="relative origin-center scale-[0.58] sm:scale-[0.78] md:origin-left lg:scale-100">
+          <Cubes
+            gridSize={7}
+            cubeSize={64}
+            maxAngle={60}
+            radius={4}
+            borderStyle="2px dotted rgba(255,255,255,0.85)"
+            faceColor="#0b0614"
+            rippleColor="#ffffff"
+            rippleSpeed={1.5}
+            autoAnimate
+            rippleOnClick
+          />
+        </div>
+      </div>
     ),
   },
 ];
 
+function Eyebrow({
+  Icon,
+  children,
+}: {
+  Icon: IconRenderer;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-border bg-background/40">
+        <Icon className="size-3.5 text-muted-foreground" aria-hidden="true" />
+      </span>
+      <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function Bullets({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-col gap-3">
+      {items.map((bullet) => (
+        <li key={bullet} className="flex items-center gap-3 text-sm">
+          <span className="flex size-[18px] shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <Check className="size-2.5" aria-hidden="true" />
+          </span>
+          <span className="text-foreground">{bullet}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Features() {
   return (
-    <section
-      id="services"
-      className="flex w-full items-center justify-center px-6 py-16 sm:py-24"
-    >
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="mx-auto mb-8 max-w-xl text-center">
-          <Badge variant="outline" className="mb-4 tracking-widest uppercase">
+    <div id="services" className="w-full">
+      {/* Intro + full-bleed printer scene */}
+      <section data-bg="print" className="w-full pt-28 sm:pt-40">
+        <div
+          data-reveal="up"
+          className="mx-auto mb-12 max-w-2xl px-6 text-center"
+        >
+          <Badge
+            variant="outline"
+            className="mb-4 bg-background/30 tracking-widest uppercase backdrop-blur"
+          >
             Services
           </Badge>
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2 className="font-heading text-4xl font-bold tracking-tight text-balance sm:text-6xl">
             Everything your print program needs
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
             Explore our comprehensive range of services, from direct mail and
             packaging to custom marketing materials.
           </p>
         </div>
 
-        <div className="flex flex-col">
-          <div className="relative flex min-h-[44rem] w-full items-center overflow-hidden">
-            <div className="absolute inset-0">
-              <PrinterShowcase />
-            </div>
+        <div className="relative flex min-h-[46rem] w-full items-center overflow-hidden md:min-h-[54rem]">
+          <div
+            data-parallax="8"
+            className="absolute inset-x-0 -top-[10%] -bottom-[10%]"
+          >
+            <PrinterShowcase />
+          </div>
+
+          <div className="relative z-10 w-full px-6 py-10 md:px-[6vw]">
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-background to-transparent"
-              aria-hidden="true"
-            />
-            <div className="relative z-10 w-full px-6 py-10 sm:px-10">
-              <div className="max-w-md rounded-lg bg-gradient-to-r from-background/90 to-transparent p-6">
-                <div className="flex items-center gap-2">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-border bg-muted">
-                    <Printer
-                      className="size-3.5 text-muted-foreground"
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                    Print Production
-                  </span>
-                </div>
+              data-reveal="left"
+              className="glass-card max-w-lg rounded-3xl p-8 md:p-10"
+            >
+              <Eyebrow Icon={(p) => <Printer {...p} />}>
+                Print Production
+              </Eyebrow>
 
-                <h3 className="mt-6 font-heading text-2xl font-bold tracking-tight sm:text-[1.75rem] sm:leading-snug">
-                  Digital, offset, and large format printing
-                </h3>
+              <h3 className="mt-6 font-heading text-2xl font-bold tracking-tight sm:text-[1.9rem] sm:leading-snug">
+                Digital, offset, and large format printing
+              </h3>
 
-                <p className="mt-5 leading-relaxed text-muted-foreground">
-                  From short-run digital jobs to full offset press runs,
-                  produced in-house and finished to spec.
-                </p>
+              <p className="mt-5 leading-relaxed text-muted-foreground">
+                From short-run digital jobs to full offset press runs, produced
+                in-house and finished to spec.
+              </p>
 
-                <ul className="mt-8 flex flex-col gap-3">
-                  {[
+              <div className="mt-8">
+                <Bullets
+                  items={[
                     "Digital printing for fast turnaround",
                     "Offset & commercial printing at scale",
                     "Large format printing & signage",
-                  ].map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-center gap-3 text-sm"
-                    >
-                      <span className="flex size-[18px] shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                        <Check className="size-2.5" aria-hidden="true" />
-                      </span>
-                      <span className="text-foreground">{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
+                  ]}
+                />
               </div>
             </div>
           </div>
-
-          <Separator />
-
-          {rows.map((row, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <div key={row.eyebrow}>
-                <div
-                  className={`flex flex-col gap-10 py-16 md:flex-row md:items-center md:gap-16 ${
-                    isEven ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  <div className="flex flex-1 flex-col gap-6">
-                    <div className="flex items-center gap-2">
-                      <span className="flex size-6 shrink-0 items-center justify-center rounded-md border border-border bg-muted">
-                        <row.Icon
-                          className="size-3.5 text-muted-foreground"
-                          aria-hidden="true"
-                        />
-                      </span>
-                      <span className="text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                        {row.eyebrow}
-                      </span>
-                    </div>
-
-                    <h3 className="font-heading text-2xl font-bold tracking-tight sm:text-[1.75rem] sm:leading-snug">
-                      {row.title}
-                    </h3>
-
-                    <p className="leading-relaxed text-muted-foreground">
-                      {row.body}
-                    </p>
-
-                    <ul className="flex flex-col gap-3">
-                      {row.bullets.map((bullet) => (
-                        <li
-                          key={bullet}
-                          className="flex items-center gap-3 text-sm"
-                        >
-                          <span className="flex size-[18px] shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                            <Check className="size-2.5" aria-hidden="true" />
-                          </span>
-                          <span className="text-foreground">{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="flex flex-1 items-center justify-center">
-                    {row.visual ?? (
-                      <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-lg border border-border bg-muted">
-                        <span className="flex size-20 items-center justify-center rounded-2xl border border-border bg-background">
-                          <row.Icon
-                            className="size-9 text-foreground/70"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {index < rows.length - 1 && <Separator />}
-              </div>
-            );
-          })}
         </div>
-      </div>
-    </section>
+      </section>
+
+      {rows.map((row) => {
+        const visualLeft = row.visualSide === "left";
+        return (
+          <section
+            key={row.eyebrow}
+            data-bg={row.bg}
+            className="w-full py-20 sm:py-32"
+          >
+            <div
+              className={`mx-auto flex w-full max-w-[1700px] flex-col items-center px-6 md:px-[4vw] ${
+                visualLeft ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+            >
+              <div
+                data-reveal={visualLeft ? "left" : "right"}
+                className="w-full md:w-[62%]"
+              >
+                {row.visual}
+              </div>
+
+              {/* Overlaps the visual by ~10% so copy and shader read as one
+                  composition instead of two separate columns. */}
+              <div
+                data-reveal={visualLeft ? "right" : "left"}
+                className={`glass-card relative z-10 -mt-10 w-full rounded-3xl p-8 md:mt-0 md:w-[44%] md:p-10 ${
+                  visualLeft ? "md:-ml-[10%]" : "md:-mr-[10%]"
+                }`}
+              >
+                <div className="flex flex-col gap-6">
+                  <Eyebrow Icon={row.Icon}>{row.eyebrow}</Eyebrow>
+                  <h3 className="font-heading text-2xl font-bold tracking-tight sm:text-[1.9rem] sm:leading-snug">
+                    {row.title}
+                  </h3>
+                  <p className="leading-relaxed text-muted-foreground">
+                    {row.body}
+                  </p>
+                  <Bullets items={row.bullets} />
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+    </div>
   );
 }

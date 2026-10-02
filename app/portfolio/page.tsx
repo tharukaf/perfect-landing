@@ -58,7 +58,7 @@ const carouselItems = [
 export default function PortfolioPage() {
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="w-full px-6 pt-16 sm:pt-24">
+      <div className="w-full px-6 pt-32 sm:pt-36">
         <div className="mx-auto w-full max-w-6xl">
           <div className="max-w-2xl">
             <Badge variant="outline" className="mb-4 tracking-widest uppercase">

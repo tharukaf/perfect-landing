@@ -116,14 +116,15 @@ export default function Stats() {
   return (
     <section
       ref={sectionRef}
-      className="flex w-full items-center justify-center px-6 py-16 sm:py-24"
+      data-bg="proof"
+      className="flex w-full items-center justify-center px-6 py-24 sm:py-40 md:px-[4vw]"
     >
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="mx-auto w-full max-w-[1500px]">
+        <div data-reveal="up" className="mx-auto max-w-2xl text-center">
           <Badge variant="outline" className="mb-4 tracking-widest uppercase">
             By The Numbers
           </Badge>
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2 className="font-heading text-4xl font-bold tracking-tight text-balance sm:text-6xl">
             Numbers our clients trust
           </h2>
           <p className="mt-4 text-base text-balance text-muted-foreground">
@@ -131,14 +132,14 @@ export default function Stats() {
           </p>
         </div>
 
-        <ul className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-3">
+        <ul data-stagger data-reveal="up" className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {metrics.map((metric) => {
             const Icon = metric.icon
             const current = metric.target * progress
             return (
               <li
                 key={metric.id}
-                className="group flex flex-col gap-4 bg-card p-6 transition-colors hover:bg-card/60 sm:p-8"
+                className="glass-card group flex min-h-72 flex-col gap-4 rounded-3xl p-8 transition-colors hover:bg-background/40 sm:p-10"
               >
                 <span className="flex size-10 items-center justify-center rounded-md bg-muted text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                   <Icon className="size-5" aria-hidden="true" />
@@ -146,7 +147,7 @@ export default function Stats() {
                 <div className="mt-auto">
                   <p
                     className={cn(
-                      "text-4xl font-semibold tracking-tight tabular-nums sm:text-5xl"
+                      "text-6xl font-semibold tracking-tight tabular-nums sm:text-7xl lg:text-8xl"
                     )}
                   >
                     {formatValue(current, metric)}
