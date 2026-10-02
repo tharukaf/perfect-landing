@@ -79,13 +79,6 @@ const rows: Row[] = [
           aria-hidden="true"
         />
         <div className="relative origin-center scale-[0.58] sm:scale-[0.78] md:origin-left lg:scale-100">
-          {/* Whole array tilted in 3D; ScrollFx (data-tilt) swings it as the
-              section scrolls. The class is the static pose for no-JS /
-              reduced motion and matches the GSAP start values. */}
-          <div
-            data-tilt
-            className="[transform:perspective(1400px)_rotateX(52deg)_rotateZ(-32deg)]"
-          >
           <Cubes
             gridSize={7}
             cubeSize={64}
@@ -98,7 +91,6 @@ const rows: Row[] = [
             autoAnimate
             rippleOnClick
           />
-          </div>
         </div>
       </div>
     ),

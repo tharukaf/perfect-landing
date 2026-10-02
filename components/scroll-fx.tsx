@@ -22,7 +22,6 @@ const REVEAL_FROM: Record<string, gsap.TweenVars> = {
  *  - `[data-reveal="kind"]`  scrubbed in -> hold -> out; `data-stagger` staggers
  *                            children, `data-no-out` skips the exit fade
  *  - `[data-parallax="n"]`   drift +/- n% of its own height across the viewport
- *  - `[data-tilt]`          3D rotation of the element (cube array) scrubbed by scroll
  *  - `#hero-card`            hero shader card expands to full-bleed, then contracts
  *
  * Renders nothing. Motion pieces sit behind `prefers-reduced-motion` so
@@ -100,26 +99,6 @@ export function ScrollFx() {
               start: "top bottom",
               end: "bottom top",
               scrub: true,
-            },
-          }
-        )
-      })
-
-      // --- 3D tilt: swing the cube array through space as its section passes
-      gsap.utils.toArray<HTMLElement>("[data-tilt]").forEach((el) => {
-        gsap.fromTo(
-          el,
-          { transformPerspective: 1400, rotationX: 52, rotationZ: -32, rotationY: 0 },
-          {
-            rotationX: 38,
-            rotationZ: 18,
-            rotationY: -14,
-            ease: "none",
-            scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 0.8,
             },
           }
         )
