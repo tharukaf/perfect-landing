@@ -36,7 +36,7 @@ const rows: Row[] = [
     bg: "print",
     visualSide: "left",
     visual: (
-      <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl bg-[#05061a]">
         <ElectricLogo
           src="/envelope.jpg"
           color="#090548"
@@ -75,7 +75,7 @@ const rows: Row[] = [
             the reference */}
         <div
           data-parallax="12"
-          className="absolute left-[10%] size-[70%] rounded-full bg-[#d4189a]/40 blur-[110px]"
+          className="absolute left-[10%] size-[70%] rounded-full bg-[#d4189a]/20 blur-[120px] dark:bg-[#d4189a]/30"
           aria-hidden="true"
         />
         <div className="relative origin-center scale-[0.58] sm:scale-[0.78] md:origin-left lg:scale-100">
