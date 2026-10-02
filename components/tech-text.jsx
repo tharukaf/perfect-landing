@@ -589,8 +589,9 @@ const TechText = ({
 
     const locate = e => {
       const rect = container.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
+      // Rescale for ancestor CSS transforms (the hero card is scaled).
+      pointer.x = (e.clientX - rect.left) * (rect.width ? container.clientWidth / rect.width : 1);
+      pointer.y = (e.clientY - rect.top) * (rect.height ? container.clientHeight / rect.height : 1);
     };
     const onMove = e => {
       locate(e);

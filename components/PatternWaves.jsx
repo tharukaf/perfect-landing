@@ -799,9 +799,13 @@ const PatternWaves = ({
 
     const locate = e => {
       const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      return { x, y, inside: x >= 0 && y >= 0 && x <= rect.width && y <= rect.height };
+      // A CSS transform on an ancestor (e.g. a scaled card) shrinks the rect
+      // but not clientWidth; rescale so pointer coords stay in canvas space.
+      const kx = rect.width ? container.clientWidth / rect.width : 1;
+      const ky = rect.height ? container.clientHeight / rect.height : 1;
+      const x = (e.clientX - rect.left) * kx;
+      const y = (e.clientY - rect.top) * ky;
+      return { x, y, inside: x >= 0 && y >= 0 && x <= container.clientWidth && y <= container.clientHeight };
     };
 
     const onPointerMove = e => {
